@@ -1,36 +1,142 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📘 Sistema Digital de Bitácoras (Frontend)
 
-## Getting Started
+Proyecto **Frontend** desarrollado con **Next.js 16** y **Node.js 20**, orientado a la digitalización y gestión de bitácoras operativas de estaciones de servicio, cumpliendo con la **NOM-005-ASEA-2016**.
 
-First, run the development server:
+---
+
+## 🚀 Tecnologías utilizadas
+
+* **Next.js 16** (App Router)
+* **React**
+* **TypeScript**
+* **Tailwind CSS**
+* **Framer Motion**
+* **Lucide Icons**
+* **Node.js 20**
+
+---
+
+## 📋 Requisitos previos
+
+Antes de comenzar, asegúrate de tener instalado:
+
+* Node.js **v20.x**
+* npm / pnpm / yarn
+* Backend en NestJS funcionando
+
+Verifica tu versión de Node:
+
+```bash
+node -v
+```
+
+---
+
+## ⚙️ Instalación
+
+Clona el repositorio:
+
+```bash
+git clone https://github.com/tu-usuario/tu-repositorio.git
+cd tu-repositorio
+```
+
+Instala las dependencias:
+
+```bash
+npm install
+# o
+pnpm install
+# o
+yarn install
+```
+
+---
+
+## ▶️ Ejecución en desarrollo
+
+Inicia el servidor de desarrollo:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre tu navegador en:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🔐 Variables de entorno
 
-To learn more about Next.js, take a look at the following resources:
+Crea un archivo `.env.local` en la raíz del proyecto:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3001
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+En producción (Vercel):
 
-## Deploy on Vercel
+```env
+NEXT_PUBLIC_API_URL=https://tu-backend-nestjs.com
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🔗 Backend
+
+Este frontend consume una API desarrollada en **NestJS**. El backend debe:
+
+* Estar desplegado públicamente
+* Tener CORS habilitado para el dominio de Vercel
+
+Ejemplo en `main.ts`:
+
+```ts
+app.enableCors({
+  origin: ['http://localhost:3000', 'https://tu-front.vercel.app'],
+});
+```
+
+---
+
+## 📂 Estructura del proyecto
+
+```
+src/
+├── app/
+│   ├── estaciones/
+│   ├── bitacoras/
+│   ├── dashboard/
+│   └── page.tsx
+├── components/
+├── service/
+└── styles/
+```
+
+---
+
+## ☁️ Despliegue
+
+### Frontend
+
+* Plataforma: **Vercel**
+* Node Version: **20**
+* Framework: **Next.js**
+
+Configura las variables de entorno desde el panel de Vercel.
+
+---
+
+## 📄 Licencia
+
+Proyecto de uso privado. Todos los derechos reservados © 2026.
+
+---
+
+## 👨‍💻 Autor
+
+**Figueroa González y Asociados, S. C.**
+Desarrollo de soluciones tecnológicas para cumplimiento normativo.

@@ -1,0 +1,1 @@
+export { BitacoraCard } from './BitacoraCard'
