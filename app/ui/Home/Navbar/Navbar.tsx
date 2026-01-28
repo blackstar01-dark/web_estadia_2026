@@ -75,7 +75,7 @@ export const Navbar = () => {
 
             <li>
               <Link
-                href="/documentacion"
+                href="/nom-005"
                 className={linkClass(pathname.startsWith("/documentacion"))}
               >
                 NOM-005

@@ -1,17 +1,23 @@
-import getEstaciones from "@/app/lib/estaciones/data";
+import getBitacoras from "@/app/lib/bitacoras/data";
 import Link from "next/link";
-import { Estacion } from "@/app/lib/type/estacion";
+import { Bitacora, TipoBitacora } from "@/app/lib/type/bitacora";
 
-export const MainEstaciones = async () => {
-  let estaciones: Estacion[] = [];
+const tipoLabel: Record<TipoBitacora, string> = {
+  ACTIVIDADES_DIARIAS: "Actividades diarias",
+  DESCARGA_PIPAS: "Descarga de pipas",
+  OPERACION_MANTENIMIENTO: "Operación y mantenimiento",
+};
+
+export const MainBitacoras = async () => {
+  let bitacoras: Bitacora[] = [];
 
   try {
-    estaciones = await getEstaciones();
+    bitacoras = await getBitacoras();
   } catch {
     return (
       <section className="bg-[#0B1C2D] min-h-screen text-white flex items-center justify-center">
         <p className="text-red-400">
-          Error al cargar las estaciones. Intenta más tarde.
+          Error al cargar las bitácoras. Intenta más tarde.
         </p>
       </section>
     );
@@ -27,11 +33,11 @@ export const MainEstaciones = async () => {
                            bg-[#0099CC]/10 px-4 py-1.5 text-xs font-semibold
                            text-[#0099CC] tracking-wide">
             <span className="h-2 w-2 rounded-full bg-[#0099CC]" />
-            Estaciones registradas
+            Bitácoras registradas
           </span>
 
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-            Gestión de estaciones de servicio
+            Control y seguimiento de bitácoras
           </h1>
 
           <p className="mt-4 max-w-2xl text-[#C7CCD1]">
@@ -43,90 +49,82 @@ export const MainEstaciones = async () => {
         </header>
 
         {/* EMPTY */}
-        {estaciones.length === 0 ? (
+        {bitacoras.length === 0 ? (
           <div className="rounded-xl border border-dashed border-[#3A4A5A]
                           p-10 text-center text-[#7F8A96]">
-            No existen estaciones registradas.
+            No existen bitácoras registradas.
           </div>
         ) : (
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {estaciones.map((estacion) => (
+            {bitacoras.map((bitacora) => (
               <article
-                key={estacion.id}
+                key={bitacora.id}
                 className="rounded-2xl border border-[#1E3A52]
                            bg-[#0F2A44]/70 backdrop-blur p-6 transition
                            hover:border-[#0099CC]/70"
               >
 
-                {/* TITULO */}
+                {/* TIPO */}
+                <span className="inline-block mb-3 rounded-full
+                                 bg-[#0099CC]/10 px-3 py-1
+                                 text-xs font-semibold text-[#0099CC]">
+                  {tipoLabel[bitacora.tipo]}
+                </span>
+
+                {/* ESTACIÓN */}
                 <div className="mb-4">
-                  <h2 className="text-xl font-semibold">
-                    {estacion.nombre}
+                  <h2 className="text-lg font-semibold">
+                    {bitacora.estacion.nombre}
                   </h2>
                   <p className="text-sm text-[#AEB6BE]">
-                    {estacion.razonSocial}
+                    Permiso CRE: {bitacora.estacion.permisoCRE}
                   </p>
                 </div>
 
-                {/* DATOS LEGALES */}
+                {/* INFO */}
                 <div className="space-y-2 text-sm text-[#C7CCD1]">
                   <p>
                     <span className="font-medium text-white">
-                      Permiso CRE:
+                      Fecha:
                     </span>{" "}
-                    {estacion.permisoCRE}
+                    {new Date(bitacora.createdAt).toLocaleDateString("es-MX")}
                   </p>
 
                   <p>
                     <span className="font-medium text-white">
-                      Dirección:
+                      Registros:
                     </span>{" "}
-                    {estacion.direccion}
+                    {bitacora.registros.length}
                   </p>
-                </div>
-
-                {/* BITÁCORAS */}
-                <div className="mt-5 rounded-xl bg-[#0B1C2D]/70
-                                border border-[#1E3A52] p-4">
-                  <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[#7F8A96]">
-                    Bitácoras operativas
-                  </p>
-
-                  <ul className="space-y-1 text-sm text-[#C7CCD1]">
-                    <li>• Actividades diarias</li>
-                    <li>• Descarga de pipas</li>
-                    <li>• Operación y mantenimiento</li>
-                  </ul>
                 </div>
 
                 {/* FOOTER */}
                 <div className="mt-6 flex items-center justify-between">
                   <span className="text-xs text-[#7F8A96]">
-                    Alta:{" "}
-                    {new Date(estacion.createdAt).toLocaleDateString("es-MX")}
+                    Bitácora #{bitacora.id}
                   </span>
 
                   <span
                     className={`rounded-full px-3 py-1 text-xs font-medium ${
-                      estacion.activa
+                      bitacora.activa
                         ? "bg-emerald-500/10 text-emerald-400"
                         : "bg-slate-500/10 text-slate-400"
                     }`}
                   >
-                    {estacion.activa ? "Activa" : "Inactiva"}
+                    {bitacora.activa ? "Activa" : "Cerrada"}
                   </span>
                 </div>
 
                 {/* ACTION */}
                 <div className="mt-6">
                   <Link
-                    href={`/estaciones/${estacion.id}/bitacoras`}
+                    href={`/bitacoras/${bitacora.id}`}
                     className="inline-flex w-full items-center justify-center
                                rounded-md bg-[#0099CC] px-4 py-2.5
                                text-sm font-semibold text-white
                                hover:bg-[#0066A1] transition"
                   >
-                    Acceder a bitácoras
+                    Ver registros
                   </Link>
                 </div>
               </article>
