@@ -15,8 +15,8 @@ export const MainBitacoras = async () => {
     bitacoras = await getBitacoras();
   } catch {
     return (
-      <section className="bg-[#0B1C2D] min-h-screen text-white flex items-center justify-center">
-        <p className="text-red-400">
+      <section className="bg-white min-h-screen flex items-center justify-center">
+        <p className="text-red-600">
           Error al cargar las bitácoras. Intenta más tarde.
         </p>
       </section>
@@ -24,14 +24,16 @@ export const MainBitacoras = async () => {
   }
 
   return (
-    <section className="bg-[#0B1C2D] min-h-screen text-white">
+    <section className="bg-white min-h-screen text-[#1F2933]">
       <div className="max-w-7xl mx-auto px-6 py-16">
 
         {/* HEADER */}
         <header className="mb-12">
-          <span className="inline-flex items-center gap-2 mb-4 rounded-full
-                           bg-[#0099CC]/10 px-4 py-1.5 text-xs font-semibold
-                           text-[#0099CC] tracking-wide">
+          <span
+            className="inline-flex items-center gap-2 mb-4 rounded-full
+                       bg-[#0099CC]/10 px-4 py-1.5 text-xs font-semibold
+                       text-[#0099CC] tracking-wide"
+          >
             <span className="h-2 w-2 rounded-full bg-[#0099CC]" />
             Bitácoras registradas
           </span>
@@ -40,7 +42,7 @@ export const MainBitacoras = async () => {
             Control y seguimiento de bitácoras
           </h1>
 
-          <p className="mt-4 max-w-2xl text-[#C7CCD1]">
+          <p className="mt-4 max-w-2xl text-[#4B5563]">
             Administración conforme a la{" "}
             <span className="text-[#0099CC] font-medium">
               NOM-005-ASEA-2016
@@ -50,8 +52,10 @@ export const MainBitacoras = async () => {
 
         {/* EMPTY */}
         {bitacoras.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-[#3A4A5A]
-                          p-10 text-center text-[#7F8A96]">
+          <div
+            className="rounded-xl border border-dashed border-gray-300
+                       p-10 text-center text-gray-500"
+          >
             No existen bitácoras registradas.
           </div>
         ) : (
@@ -59,15 +63,17 @@ export const MainBitacoras = async () => {
             {bitacoras.map((bitacora) => (
               <article
                 key={bitacora.id}
-                className="rounded-2xl border border-[#1E3A52]
-                           bg-[#0F2A44]/70 backdrop-blur p-6 transition
-                           hover:border-[#0099CC]/70"
+                className="rounded-2xl border border-gray-200
+                           bg-white p-6 transition
+                           hover:border-[#0099CC]
+                           hover:shadow-[0_10px_30px_-12px_rgba(0,153,204,0.35)]"
               >
-
                 {/* TIPO */}
-                <span className="inline-block mb-3 rounded-full
-                                 bg-[#0099CC]/10 px-3 py-1
-                                 text-xs font-semibold text-[#0099CC]">
+                <span
+                  className="inline-block mb-3 rounded-full
+                             bg-[#0099CC]/10 px-3 py-1
+                             text-xs font-semibold text-[#0099CC]"
+                >
                   {tipoLabel[bitacora.tipo]}
                 </span>
 
@@ -76,22 +82,22 @@ export const MainBitacoras = async () => {
                   <h2 className="text-lg font-semibold">
                     {bitacora.estacion.nombre}
                   </h2>
-                  <p className="text-sm text-[#AEB6BE]">
+                  <p className="text-sm text-[#6B7280]">
                     Permiso CRE: {bitacora.estacion.permisoCRE}
                   </p>
                 </div>
 
                 {/* INFO */}
-                <div className="space-y-2 text-sm text-[#C7CCD1]">
+                <div className="space-y-2 text-sm text-[#4B5563]">
                   <p>
-                    <span className="font-medium text-white">
+                    <span className="font-medium text-[#1F2933]">
                       Fecha:
                     </span>{" "}
                     {new Date(bitacora.createdAt).toLocaleDateString("es-MX")}
                   </p>
 
                   <p>
-                    <span className="font-medium text-white">
+                    <span className="font-medium text-[#1F2933]">
                       Registros:
                     </span>{" "}
                     {bitacora.registros.length}
@@ -100,15 +106,15 @@ export const MainBitacoras = async () => {
 
                 {/* FOOTER */}
                 <div className="mt-6 flex items-center justify-between">
-                  <span className="text-xs text-[#7F8A96]">
+                  <span className="text-xs text-gray-500">
                     Bitácora #{bitacora.id}
                   </span>
 
                   <span
                     className={`rounded-full px-3 py-1 text-xs font-medium ${
                       bitacora.activa
-                        ? "bg-emerald-500/10 text-emerald-400"
-                        : "bg-slate-500/10 text-slate-400"
+                        ? "bg-emerald-500/10 text-emerald-600"
+                        : "bg-gray-200 text-gray-600"
                     }`}
                   >
                     {bitacora.activa ? "Activa" : "Cerrada"}
@@ -122,7 +128,7 @@ export const MainBitacoras = async () => {
                     className="inline-flex w-full items-center justify-center
                                rounded-md bg-[#0099CC] px-4 py-2.5
                                text-sm font-semibold text-white
-                               hover:bg-[#0066A1] transition"
+                               hover:bg-[#0077AA] transition"
                   >
                     Ver registros
                   </Link>

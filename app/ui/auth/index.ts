@@ -1,0 +1,1 @@
+export { AuthWelcomePage } from "./auth";

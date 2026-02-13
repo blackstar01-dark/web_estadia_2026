@@ -1,6 +1,6 @@
 export default function LoadingBitacora() {
   return (
-    <section className="bg-[#0B1C2D] min-h-screen text-white">
+    <section className="bg-white min-h-screen text-[#1F2933]">
       <div className="max-w-6xl mx-auto px-6 py-16 animate-pulse">
 
         {/* HEADER */}
@@ -8,9 +8,9 @@ export default function LoadingBitacora() {
           <div>
             <div className="mb-4 h-6 w-40 rounded-full bg-[#0099CC]/20" />
 
-            <div className="h-9 w-64 rounded bg-slate-700 mb-3" />
+            <div className="h-9 w-64 rounded bg-gray-200 mb-3" />
 
-            <div className="h-4 w-48 rounded bg-slate-700" />
+            <div className="h-4 w-48 rounded bg-gray-200" />
           </div>
 
           <div className="h-12 w-44 rounded-lg bg-[#0099CC]/20" />
@@ -21,25 +21,24 @@ export default function LoadingBitacora() {
           {Array.from({ length: 4 }).map((_, i) => (
             <article
               key={i}
-              className="rounded-2xl border border-[#1E3A52]
-                         bg-[#0F2A44]/70 backdrop-blur
-                         p-6"
+              className="rounded-2xl border border-gray-200
+                         bg-white p-6"
             >
               {/* TOP */}
               <div className="flex justify-between mb-4">
-                <div className="h-4 w-24 rounded bg-slate-700" />
-                <div className="h-4 w-36 rounded bg-slate-700" />
+                <div className="h-4 w-24 rounded bg-gray-200" />
+                <div className="h-4 w-36 rounded bg-gray-200" />
               </div>
 
               {/* DESC */}
               <div className="space-y-2 mb-4">
-                <div className="h-4 w-full rounded bg-slate-700" />
-                <div className="h-4 w-5/6 rounded bg-slate-700" />
+                <div className="h-4 w-full rounded bg-gray-200" />
+                <div className="h-4 w-5/6 rounded bg-gray-200" />
               </div>
 
               {/* FOOTER */}
               <div className="flex justify-between items-center">
-                <div className="h-4 w-40 rounded bg-slate-700" />
+                <div className="h-4 w-40 rounded bg-gray-200" />
                 <div className="h-6 w-24 rounded-full bg-[#0099CC]/20" />
               </div>
             </article>

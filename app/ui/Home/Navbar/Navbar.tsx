@@ -1,131 +1,97 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useState } from "react"
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
 const linkClass = (active: boolean) =>
-  `relative transition-colors font-medium
-  ${
-    active
-      ? "text-[#0099CC]"
-      : "text-[#6B7280] hover:text-[#0066A1]"
-  }
-  after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-full
-  after:scale-x-0 after:bg-[#0099CC] after:transition-transform
-  hover:after:scale-x-100
-  ${active ? "after:scale-x-100" : ""}`
+  `relative transition-colors font-medium ${
+    active ? "text-[#0099CC]" : "text-[#6B7280] hover:text-[#0066A1]"
+  }`;
 
 export const Navbar = () => {
-  const pathname = usePathname()
-  const [open, setOpen] = useState(false)
+  const pathname = usePathname();
+  const router = useRouter();
+  const [userName, setUserName] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await fetch("/api/me", { credentials: "include" });
+
+        if (!res.ok) {
+          setUserName(null);
+          return;
+        }
+
+        const data = await res.json();
+        setUserName(data.nombre);
+      } catch {
+        setUserName(null);
+      }
+    };
+
+    fetchUser();
+  }, [pathname]);
+
+  const handleLogout = async () => {
+    await fetch("/api/auth/logout", {
+      method: "POST",
+      credentials: "include",
+    });
+
+    setUserName(null);
+    router.push("/auth/loginUsuario");
+    router.refresh();
+  };
 
   return (
-    <nav className="sticky top-0 z-50 bg-white border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex h-16 items-center justify-between">
+    <nav className="sticky top-0 bg-white border-b border-gray-200 z-50">
+      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center h-16">
+        <Link href="/" className="font-bold text-[#0099CC]">
+          Bitácoras NOM-005
+        </Link>
 
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            {/* Si luego quieres poner el logo como imagen aquí queda perfecto */}
-            <span className="text-base font-semibold text-[#8A8D8C] tracking-wide">
-              Bitácoras{" "}
-              <span className="text-[#0099CC] font-bold">
-                NOM-005
-              </span>
-            </span>
-          </Link>
-
-          {/* Desktop menu */}
-          <ul className="hidden md:flex items-center gap-8 text-sm">
-            <li>
-              <Link href="/" className={linkClass(pathname === "/")}>
-                Inicio
-              </Link>
-            </li>
-
-            <li>
-              <Link
-                href="/estaciones"
-                className={linkClass(pathname.startsWith("/estaciones"))}
-              >
-                Estaciones
-              </Link>
-            </li>
-
-            <li>
-              <Link
-                href="/bitacoras"
-                className={linkClass(pathname.startsWith("/bitacoras"))}
-              >
-                Bitácoras
-              </Link>
-            </li>
-
-            <li>
-              <Link
-                href="/personas-autorizadas"
-                className={linkClass(
-                  pathname.startsWith("/personas-autorizadas")
-                )}
-              >
-                Personas autorizadas
-              </Link>
-            </li>
-
-            <li>
-              <Link
-                href="/nom-005"
-                className={linkClass(pathname.startsWith("/documentacion"))}
-              >
-                NOM-005
-              </Link>
-            </li>
-          </ul>
-
-          {/* User */}
-          <div className="hidden md:block">
-            <Link
-              href="/perfil"
-              className="text-sm text-[#6B7280] hover:text-[#0099CC] transition"
-            >
-              Mi cuenta
+        <ul className="hidden md:flex items-center gap-6">
+          <li>
+            <Link href="/" className={linkClass(pathname === "/")}>
+              Inicio
             </Link>
-          </div>
+          </li>
+          <li>
+            <Link
+              href="/estaciones"
+              className={linkClass(pathname.startsWith("/estaciones"))}
+            >
+              Estaciones
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/bitacoras"
+              className={linkClass(pathname.startsWith("/bitacoras"))}
+            >
+              Bitácoras
+            </Link>
+          </li>
+        </ul>
 
-          {/* Mobile button */}
-          <button
-            onClick={() => setOpen(!open)}
-            className="md:hidden text-[#0066A1] text-2xl"
-            aria-label="Abrir menú"
-          >
-            ☰
-          </button>
-        </div>
-
-        {/* Mobile menu */}
-        {open && (
-          <div className="md:hidden border-t border-gray-200 py-4 space-y-2 text-sm bg-white">
-            {[
-              { href: "/", label: "Inicio" },
-              { href: "/estaciones", label: "Estaciones" },
-              { href: "/bitacoras", label: "Bitácoras" },
-              { href: "/personas-autorizadas", label: "Personas autorizadas" },
-              { href: "/documentacion", label: "NOM-005" },
-              { href: "/perfil", label: "Mi cuenta" },
-            ].map(link => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="block px-3 py-2 rounded-md text-[#6B7280] hover:text-[#0099CC] hover:bg-gray-100 transition"
-                onClick={() => setOpen(false)}
+        <div className="hidden md:flex items-center gap-4 text-sm text-[#6B7280]">
+          {userName ? (
+            <>
+              <span>Hola, {userName}</span>
+              <button
+                onClick={handleLogout}
+                className="text-red-500 hover:text-red-700 font-medium transition-colors"
               >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-        )}
+                Cerrar sesión
+              </button>
+            </>
+          ) : (
+            <Link href="/auth">Mi cuenta</Link>
+          )}
+        </div>
       </div>
     </nav>
-  )
-}
+  );
+};

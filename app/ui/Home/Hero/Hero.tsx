@@ -4,10 +4,10 @@ import Link from "next/link"
 
 export const Hero = () => {
   return (
-    <section className="relative bg-[#0B1C2D] text-white overflow-hidden">
-      
-      {/* Fondo sutil institucional */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0F2A44] via-[#0B1C2D] to-[#081521]"></div>
+    <section className="relative bg-white text-[#2E2E2E] overflow-hidden">
+
+      {/* Fondo sutil */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white via-[#F7F9FB] to-white"></div>
 
       <div className="relative max-w-7xl mx-auto px-6 py-28">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -22,7 +22,7 @@ export const Hero = () => {
             </span>
 
             {/* Título */}
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight tracking-tight">
+            <h1 className="text-4xl md:text-5xl font-bold leading-tight tracking-tight text-[#1F2933]">
               Sistema digital para la
               <span className="block text-[#0099CC] mt-2">
                 gestión de bitácoras operativas
@@ -30,40 +30,40 @@ export const Hero = () => {
             </h1>
 
             {/* Descripción */}
-            <p className="mt-8 text-[#C7CCD1] text-lg leading-relaxed max-w-xl">
+            <p className="mt-8 text-[#4B5563] text-lg leading-relaxed max-w-xl">
               Solución tecnológica diseñada para la captura, resguardo y
               consulta de bitácoras obligatorias en estaciones de servicio,
-              asegurando la integridad de los registros y la trazabilidad
-              requerida para auditorías y verificaciones oficiales.
+              garantizando integridad de la información y trazabilidad para
+              auditorías y verificaciones oficiales.
             </p>
 
             {/* Acciones */}
             <div className="mt-10 flex flex-wrap gap-4">
               <Link
                 href="/dashboard"
-                className="inline-flex items-center justify-center rounded-md bg-[#0099CC] px-7 py-3.5 text-sm font-semibold text-white hover:bg-[#0066A1] transition"
+                className="inline-flex items-center justify-center rounded-md bg-[#0099CC] px-7 py-3.5 text-sm font-semibold text-white hover:bg-[#0077AA] transition shadow-sm"
               >
                 Acceder al sistema
               </Link>
 
               <Link
-                href="/documentacion"
-                className="inline-flex items-center justify-center rounded-md border border-[#3A4A5A] px-7 py-3.5 text-sm font-semibold text-[#C7CCD1] hover:border-[#0099CC] hover:text-[#0099CC] transition"
+                href="/nom-005"
+                className="inline-flex items-center justify-center rounded-md border border-[#0099CC] px-7 py-3.5 text-sm font-semibold text-[#0099CC] hover:bg-[#0099CC]/5 transition"
               >
                 Consultar NOM-005
               </Link>
             </div>
           </div>
 
-          {/* Columna derecha - Panel informativo */}
+          {/* Columna derecha */}
           <div className="hidden lg:block">
-            <div className="rounded-lg border border-[#1E3A52] bg-[#0F2A44]/60 backdrop-blur p-8">
+            <div className="rounded-lg border border-[#E5E7EB] bg-white p-8 shadow-sm">
 
-              <h3 className="text-sm font-semibold text-white mb-6 uppercase tracking-wide">
+              <h3 className="text-sm font-semibold text-[#1F2933] mb-6 uppercase tracking-wide">
                 Características clave
               </h3>
 
-              <ul className="space-y-4 text-sm text-[#C7CCD1]">
+              <ul className="space-y-4 text-sm text-[#4B5563]">
                 <li className="flex items-start gap-3">
                   <span className="mt-1 h-2 w-2 rounded-full bg-[#0099CC]"></span>
                   Registros foliados e inalterables
@@ -78,11 +78,11 @@ export const Hero = () => {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-1 h-2 w-2 rounded-full bg-[#0099CC]"></span>
-                  Sin posibilidad de edición o eliminación de registros
+                  Registros no editables ni eliminables
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-1 h-2 w-2 rounded-full bg-[#0099CC]"></span>
-                  Preparado para procesos de auditoría y verificación
+                  Preparado para auditorías y verificaciones
                 </li>
               </ul>
 

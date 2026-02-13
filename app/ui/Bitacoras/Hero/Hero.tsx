@@ -6,10 +6,10 @@ import Link from "next/link"
 
 export const Hero = () => {
   return (
-    <section className="relative overflow-hidden bg-[#0B1C2D] text-white">
-      
-      {/* Glow superior corporativo */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(0,153,204,0.18),_transparent_60%)]" />
+    <section className="relative overflow-hidden bg-white text-[#1F2933]">
+
+      {/* Glow sutil superior */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(0,153,204,0.12),_transparent_60%)]" />
 
       <div className="relative max-w-7xl mx-auto px-6 py-20">
         <div className="max-w-3xl">
@@ -18,7 +18,7 @@ export const Hero = () => {
             <span className="text-[#0099CC]">Bitácoras</span>
           </h1>
 
-          <p className="mt-4 text-[#C7CCD1] text-lg">
+          <p className="mt-4 text-[#4B5563] text-lg">
             Gestión y control de bitácoras conforme a la{" "}
             <span className="text-[#0099CC] font-medium">
               NOM-005-ASEA-2016
@@ -29,14 +29,14 @@ export const Hero = () => {
           <div className="mt-8 flex gap-4">
             <Link
               href="/bitacoras/create"
-              className="rounded-md bg-[#0099CC] px-6 py-3 text-sm font-semibold text-white hover:bg-[#0066A1] transition"
+              className="rounded-md bg-[#0099CC] px-6 py-3 text-sm font-semibold text-white hover:bg-[#0077AA] transition shadow-sm"
             >
               + Nueva bitácora
             </Link>
 
             <Link
               href="/bitacoras/historial"
-              className="rounded-md border border-[#3A4A5A] px-6 py-3 text-sm text-[#C7CCD1] hover:border-[#0099CC] hover:text-[#0099CC] transition"
+              className="rounded-md border border-[#0099CC] px-6 py-3 text-sm font-semibold text-[#0099CC] hover:bg-[#0099CC]/5 transition"
             >
               Ver historial
             </Link>

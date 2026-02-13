@@ -10,7 +10,7 @@ export const FindBitacora = ({ bitacora }: Props) => {
   const registros: BitacoraRegistro[] = bitacora.registros ?? [];
 
   return (
-    <section className="bg-[#0B1C2D] min-h-screen text-white">
+    <section className="bg-white min-h-screen text-[#1F2933]">
       <div className="max-w-6xl mx-auto px-6 py-16">
 
         {/* HEADER */}
@@ -29,9 +29,9 @@ export const FindBitacora = ({ bitacora }: Props) => {
               {bitacora.tipo}
             </h1>
 
-            <p className="mt-2 text-[#C7CCD1]">
+            <p className="mt-2 text-[#4B5563]">
               Estación:{" "}
-              <span className="text-white font-medium">
+              <span className="text-[#1F2933] font-medium">
                 {bitacora.estacion.nombre}
               </span>
             </p>
@@ -42,7 +42,7 @@ export const FindBitacora = ({ bitacora }: Props) => {
             className="inline-flex items-center justify-center
                        rounded-lg bg-[#0099CC] px-6 py-3
                        font-semibold text-white
-                       hover:bg-[#0066A1] transition"
+                       hover:bg-[#0077AA] transition"
           >
             + Nuevo registro
           </Link>
@@ -51,8 +51,8 @@ export const FindBitacora = ({ bitacora }: Props) => {
         {/* LISTA */}
         {registros.length === 0 ? (
           <div
-            className="rounded-xl border border-dashed border-[#3A4A5A]
-                       p-10 text-center text-[#7F8A96]"
+            className="rounded-xl border border-dashed border-gray-300
+                       p-10 text-center text-gray-500"
           >
             No hay registros en esta bitácora.
           </div>
@@ -61,32 +61,32 @@ export const FindBitacora = ({ bitacora }: Props) => {
             {registros.map((registro) => (
               <article
                 key={registro.id}
-                className="rounded-2xl border border-[#1E3A52]
-                           bg-[#0F2A44]/70 backdrop-blur
-                           p-6 transition
-                           hover:border-[#0099CC]/60"
+                className="rounded-2xl border border-gray-200
+                           bg-white p-6 transition
+                           hover:border-[#0099CC]
+                           hover:shadow-[0_10px_30px_-12px_rgba(0,153,204,0.35)]"
               >
                 {/* TOP */}
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm text-[#7F8A96]">
+                  <span className="text-sm text-gray-500">
                     Folio #{registro.folio}
                   </span>
 
-                  <span className="text-xs text-[#7F8A96]">
+                  <span className="text-xs text-gray-500">
                     {new Date(registro.fechaHora).toLocaleString("es-MX")}
                   </span>
                 </div>
 
                 {/* DESCRIPCIÓN */}
-                <p className="text-[#E5E9EE] leading-relaxed mb-4">
+                <p className="text-[#374151] leading-relaxed mb-4">
                   {registro.descripcion}
                 </p>
 
                 {/* FOOTER */}
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-[#AEB6BE]">
+                  <span className="text-[#4B5563]">
                     Responsable:
-                    <span className="text-white font-medium ml-1">
+                    <span className="text-[#1F2933] font-medium ml-1">
                       {registro.persona?.nombre ?? "No definido"}
                     </span>
                   </span>
