@@ -48,21 +48,21 @@ export const Hero = () => {
           <BitacoraCard
             title="Actividades diarias"
             description="Registro diario de actividades operativas."
-            href="/bitacoras/actividades-diarias"
+            href="/bitacoras/tipo/ACTIVIDADES_DIARIAS"
             icon={<FileText className="h-6 w-6 text-[#0099CC]" />}
           />
 
           <BitacoraCard
             title="Descarga de pipas"
             description="Control de descargas y proveedores."
-            href="/bitacoras/descarga-pipas"
+            href="/bitacoras/tipo/DESCARGA_PIPAS"
             icon={<Truck className="h-6 w-6 text-[#0099CC]" />}
           />
 
           <BitacoraCard
             title="Operación y mantenimiento"
             description="Mantenimiento preventivo y correctivo."
-            href="/bitacoras/operacion-mantenimiento"
+            href="/bitacoras/tipo/OPERACION_MANTENIMIENTO"
             icon={<Wrench className="h-6 w-6 text-[#0099CC]" />}
           />
         </div>

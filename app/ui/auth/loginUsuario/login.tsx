@@ -40,7 +40,7 @@ const LoginEmpleadoPage: React.FC = () => {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Error al iniciar sesión");
 
-      router.push("/");
+      router.push("/dashboard");
       router.refresh(); 
     } catch (err: any) {
       setError(err?.message || "Error al iniciar sesión");

@@ -4,7 +4,6 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    // Llamada al backend NestJS
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -14,16 +13,30 @@ export async function POST(req: NextRequest) {
     const data = await res.json();
 
     if (!res.ok) {
-      throw new Error(data.message || "Error al iniciar sesión");
+      return NextResponse.json(
+        { message: data.message || "Credenciales incorrectas" },
+        { status: res.status }
+      );
     }
 
-    // Guardar token en cookie httpOnly
-    const response = NextResponse.json({ message: "Login exitoso" });
+    
+    const jwt = data.access_token || data.token; 
+
+    if (!jwt) {
+      console.error("El backend no devolvió un token. Data recibida:", data);
+      return NextResponse.json({ message: "Error en formato de token" }, { status: 500 });
+    }
+
+    const response = NextResponse.json({ 
+      message: "Login exitoso",
+      user: data.user // Opcional: devolver info del usuario al cliente
+    });
+
     response.cookies.set({
-      name: "token",
-      value: data.access_token, // token devuelto por NestJS
+      name: "token", // Este nombre DEBE coincidir con request.cookies.token en el Guard
+      value: jwt,
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
       maxAge: 60 * 60, // 1 hora
@@ -32,8 +45,8 @@ export async function POST(req: NextRequest) {
     return response;
   } catch (err: any) {
     return NextResponse.json(
-      { message: err.message || "Error al iniciar sesión" },
-      { status: 401 }
+      { message: "Error de conexión con el servidor" },
+      { status: 500 }
     );
   }
 }

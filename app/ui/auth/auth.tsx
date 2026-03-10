@@ -42,7 +42,7 @@ export const AuthWelcomePage = () => {
             titulo="Portal para clientes"
             descripcion="Consulta de información, seguimiento de registros
             y acceso a servicios disponibles."
-            href="/auth/login?tipo=cliente"
+            href="/auth/loginPersonal"
             tipo="cliente"
           />
         </div>

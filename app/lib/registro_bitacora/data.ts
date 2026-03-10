@@ -1,11 +1,28 @@
-export default async function getRegistroBitacora() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/registro_bitacora`, {
-        cache: 'no-store',
-    });
+import { cookies } from "next/headers";
 
-    if (!res.ok) {
-        throw new Error('Error al obtener registro bitacora');
+export default async function getRegistrosByBitacora(
+  bitacoraId: number
+) {
+  const cookieStore = await cookies(); 
+  const token = cookieStore.get("token")?.value;
+
+  if (!token) {
+    throw new Error("No token found");
+  }
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/registrobitacora/bitacora/${bitacoraId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      cache: "no-store",
     }
+  );
 
-    return res.json();
+  if (!res.ok) {
+    throw new Error("Error al obtener registros");
+  }
+
+  return res.json();
 }

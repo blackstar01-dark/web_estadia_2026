@@ -25,7 +25,7 @@ export const Navbar = () => {
         }
 
         const data = await res.json();
-        setUserName(data.nombre);
+        setUserName(data.nombre || data.correo || "Usuario");
       } catch {
         setUserName(null);
       }
@@ -74,12 +74,25 @@ export const Navbar = () => {
               Bitácoras
             </Link>
           </li>
+          <li>
+            <Link
+              href="/nom-005"
+              className={linkClass(pathname.startsWith("/nom-005"))}
+            >
+              NOM-055
+            </Link>
+          </li>
         </ul>
 
         <div className="hidden md:flex items-center gap-4 text-sm text-[#6B7280]">
           {userName ? (
             <>
-              <span>Hola, {userName}</span>
+              <Link
+                href="/perfil"
+                className="hover:text-[#0099CC] transition-colors font-medium"
+              >
+                Hola, {userName}
+              </Link>
               <button
                 onClick={handleLogout}
                 className="text-red-500 hover:text-red-700 font-medium transition-colors"

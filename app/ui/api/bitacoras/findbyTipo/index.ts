@@ -1,0 +1,1 @@
+export { GetBitacorasTipo } from './findbyTipo'

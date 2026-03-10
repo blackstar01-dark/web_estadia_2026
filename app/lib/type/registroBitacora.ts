@@ -1,9 +1,11 @@
-import { PersonaAutorizada } from "./personalAutorizado";
+import { PersonalAutorizado } from "./personalautorizado";
 
-export interface BitacoraRegistro {
+export interface Registro {
   id: number;
   folio: number;
-  fechaHora: Date;
   descripcion: string;
-  persona: PersonaAutorizada;
+  persona: {
+    nombre: string;
+  };
+  createdAt: string;
 }

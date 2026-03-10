@@ -1,0 +1,1 @@
+export { RegistroTable } from './RegistroTable'
