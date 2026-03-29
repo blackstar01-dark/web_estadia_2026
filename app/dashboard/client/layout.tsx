@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LayoutDashboard, BookOpen, Users } from "lucide-react";
+import { LayoutDashboard, BookOpen, Users, User, Book } from "lucide-react";
 
 export default function UsuarioLayout({
   children,
@@ -24,19 +24,24 @@ export default function UsuarioLayout({
         {/* Navigation */}
         <nav className="flex-1 p-6 space-y-2">
           <NavItem
-            href="/dashboard/usuario"
+            href="/dashboard/client/"
             icon={<LayoutDashboard size={18} />}
             label="Inicio"
           />
           <NavItem
-            href="/dashboard/usuario/mis-bitacoras"
+            href="/dashboard/client/bitacoras"
             icon={<BookOpen size={18} />}
             label="Mis Bitácoras"
           />
           <NavItem
-            href="/dashboard/usuario/nueva"
-            icon={<Users size={18} />}
-            label="Nueva Bitácora"
+            href="/dashboard/client/perfil"
+            icon={<User size={18} />}
+            label="Perfil"
+          />
+          <NavItem
+            href="/dashboard/client/mis-registros"
+            icon={<Book size={18} />}
+            label="Mis registros"
           />
         </nav>
 

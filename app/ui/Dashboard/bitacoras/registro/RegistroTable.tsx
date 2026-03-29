@@ -1,11 +1,38 @@
 "use client";
 
-import { Registro } from "@/app/lib/type/registroBitacora";
-
+import { BitacoraRegistro } from "@/app/lib/type/registroBitacora";
 
 interface Props {
-  registros: Registro[];
+  registros: BitacoraRegistro[];
 }
+
+// 🔥 Función ULTRA segura para fechas
+const formatDate = (date: any) => {
+  if (!date) return "—";
+
+  let d: Date;
+
+  // 🧠 Si viene como string tipo "2026-02-27 16:03:05.257"
+  if (typeof date === "string") {
+    d = new Date(date.replace(" ", "T"));
+  } 
+  // 🧠 Si ya viene como Date
+  else if (date instanceof Date) {
+    d = date;
+  } 
+  // 🧠 Cualquier otro caso
+  else {
+    d = new Date(date);
+  }
+
+  if (isNaN(d.getTime())) return "—";
+
+  return d.toLocaleDateString("es-MX", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+};
 
 export const RegistroTable: React.FC<Props> = ({ registros }) => {
   return (
@@ -39,24 +66,29 @@ export const RegistroTable: React.FC<Props> = ({ registros }) => {
                 key={r.id}
                 className="hover:bg-blue-50/40 transition"
               >
+                {/* Folio */}
                 <td className="px-6 py-5 font-semibold text-gray-800">
                   #{r.folio}
                 </td>
 
+                {/* Descripción */}
                 <td className="px-6 py-5 text-gray-600">
                   {r.descripcion}
                 </td>
 
+                {/* Persona */}
                 <td className="px-6 py-5 text-gray-600">
-                  {r.persona.nombre}
+                  {r.persona?.nombre ?? "—"}
                 </td>
 
+                {/* Fecha */}
                 <td className="px-6 py-5 text-gray-500">
-                  {new Date(r.createdAt).toLocaleDateString("es-MX")}
+                  {formatDate(r.createdAt)}
                 </td>
               </tr>
             ))}
 
+            {/* Sin registros */}
             {registros.length === 0 && (
               <tr>
                 <td

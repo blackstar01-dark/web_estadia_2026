@@ -1,1 +1,1 @@
-export { default as FormEstacion } from './createEstaciones';
+export { default as EstacionForm } from './createEstaciones';

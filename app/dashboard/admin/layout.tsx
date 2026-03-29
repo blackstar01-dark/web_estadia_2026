@@ -4,6 +4,7 @@ import {
   Users,
   BookOpen,
   BarChart3,
+  FolderKanban
 } from "lucide-react";
 
 export default function AdminLayout({
@@ -48,7 +49,13 @@ export default function AdminLayout({
             icon={<BarChart3 size={18} />}
             label="Estaciones"
           />
+          <NavItem
+            href="/dashboard/admin/programas"
+            icon={<FolderKanban size={18} />}
+            label="Programas"
+          />
         </nav>
+        
 
         {/* Footer */}
         <div className="p-6 border-t border-gray-700 text-sm text-gray-400">

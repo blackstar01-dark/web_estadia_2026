@@ -23,7 +23,7 @@ export async function middleware(req: NextRequest) {
   // 🔹 Si no hay token → login
   if (!token) {
     return NextResponse.redirect(
-      new URL("/auth/loginUsuario", req.url)
+      new URL("/auth", req.url)
     );
   }
 
@@ -37,7 +37,7 @@ export async function middleware(req: NextRequest) {
     decoded = payload;
   } catch {
     return NextResponse.redirect(
-      new URL("/auth/loginUsuario", req.url)
+      new URL("/auth", req.url)
     );
   }
 
@@ -70,7 +70,7 @@ export async function middleware(req: NextRequest) {
   }
 
   // 🔐 Solo admin puede crear estaciones
-  if (cleanPath.startsWith("/estaciones/create") && role !== "admin") {
+  if (cleanPath.startsWith("/dashboard/admin/estaciones/create") && role !== "admin") {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
@@ -79,6 +79,7 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
+    "/dashboard",
     "/dashboard/:path*",
     "/estaciones/create/:path*",
     "/perfil/:path*",

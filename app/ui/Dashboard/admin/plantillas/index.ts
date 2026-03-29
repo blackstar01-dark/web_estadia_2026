@@ -1,0 +1,1 @@
+export { HeroPlantillas } from './HeroPlantilla'

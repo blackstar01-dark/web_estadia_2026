@@ -7,8 +7,8 @@ export const CreateEstacionButton = () => {
 
   return (
     <button
-      onClick={() => router.push("/estaciones/create")}
-      className="inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-700 hover:to-emerald-600 text-white px-4 py-2 rounded-xl text-sm font-medium shadow-md transition-all duration-200"
+      onClick={() => router.push("/dashboard/admin/estaciones/create")}
+      className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-700 to-blue-500 hover:from-blue-800 hover:to-blue-600 text-white px-4 py-2 rounded-xl text-sm font-medium shadow-md transition-all duration-200"
     >
       Crear Estación
     </button>

@@ -21,8 +21,6 @@ export default function PersonalForm({
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
-  
-
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (loading) return;
@@ -41,7 +39,6 @@ export default function PersonalForm({
     );
 
     try {
-
       await createPersonaAutorizada({
         nombre,
         cargo,
@@ -53,7 +50,7 @@ export default function PersonalForm({
       form.reset();
 
       setTimeout(() => {
-        router.refresh();
+        router.push("/dashboard");
       }, 1200);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Error inesperado");
@@ -70,11 +67,11 @@ export default function PersonalForm({
         <header className="mb-12">
           <span
             className="inline-flex items-center gap-2 mb-4 rounded-full
-                       border border-indigo-200 bg-indigo-50
+                       border border-sky-200 bg-sky-50
                        px-4 py-1.5 text-xs font-semibold
-                       text-indigo-600 tracking-wide"
+                       text-sky-600 tracking-wide"
           >
-            <span className="h-2 w-2 rounded-full bg-indigo-500" />
+            <span className="h-2 w-2 rounded-full bg-sky-500" />
             Nuevo personal autorizado
           </span>
 
@@ -118,7 +115,7 @@ export default function PersonalForm({
               required
               className="w-full rounded-md border border-slate-300
                          bg-white px-4 py-2.5 text-sm
-                         focus:border-indigo-500 focus:outline-none"
+                         focus:border-sky-500 focus:outline-none"
             />
           </div>
 
@@ -132,7 +129,7 @@ export default function PersonalForm({
               required
               className="w-full rounded-md border border-slate-300
                          bg-white px-4 py-2.5 text-sm
-                         focus:border-indigo-500 focus:outline-none"
+                         focus:border-sky-500 focus:outline-none"
             />
           </div>
 
@@ -146,7 +143,7 @@ export default function PersonalForm({
               required
               className="w-full rounded-md border border-slate-300
                          bg-white px-4 py-2.5 text-sm
-                         focus:border-indigo-500 focus:outline-none"
+                         focus:border-sky-500 focus:outline-none"
             />
             <p className="text-xs text-slate-500 mt-1">
               Se almacenará como hash SHA-256.
@@ -163,15 +160,13 @@ export default function PersonalForm({
               required
               className="w-full rounded-md border border-slate-300
                          bg-white px-4 py-2.5 text-sm
-                         focus:border-indigo-500 focus:outline-none"
+                         focus:border-sky-500 focus:outline-none"
             >
               <option value="">Selecciona una estación</option>
               {estaciones.map((estacion) => (
                 <option key={estacion.id} value={estacion.id}>
                   {estacion.nombre}
-                  {estacion.permisoCRE
-                    ? ` — ${estacion.permisoCRE}`
-                    : ""}
+                  {estacion.permisoCRE ? ` — ${estacion.permisoCRE}` : ""}
                 </option>
               ))}
             </select>
@@ -188,9 +183,9 @@ export default function PersonalForm({
               type="submit"
               disabled={loading}
               className="inline-flex items-center justify-center
-                         rounded-md bg-indigo-600 px-6 py-2.5
+                         rounded-md bg-sky-600 px-6 py-2.5
                          text-sm font-semibold text-white
-                         transition hover:bg-indigo-700
+                         transition hover:bg-sky-700
                          disabled:opacity-50"
             >
               {loading ? "Creando..." : "Crear personal"}

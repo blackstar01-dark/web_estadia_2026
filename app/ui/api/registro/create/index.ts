@@ -1,0 +1,1 @@
+export { RegistroBitacoraForm } from './registroBitacora';

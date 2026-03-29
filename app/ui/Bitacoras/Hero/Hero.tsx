@@ -28,10 +28,10 @@ export const Hero = () => {
           {/* Acciones */}
           <div className="mt-8 flex gap-4">
             <Link
-              href="/bitacoras/create"
+              href="/dashboard"
               className="rounded-md bg-[#0099CC] px-6 py-3 text-sm font-semibold text-white hover:bg-[#0077AA] transition shadow-sm"
             >
-              + Nueva bitácora
+              Acceder al sistema
             </Link>
 
             <Link

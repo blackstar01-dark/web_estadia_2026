@@ -1,0 +1,1 @@
+export { HeroRegistros } from './HeroRegistros'

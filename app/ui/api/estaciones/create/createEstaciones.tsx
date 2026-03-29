@@ -2,19 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createEstacion, CreateEstacionPayload } from "@/app/lib/estaciones/create";
-import type { Estacion } from "@/app/lib/type/estacion";
+import { createEstacion } from "@/app/lib/estaciones/create";
 
-export default function FormEstacionAdmin() {
+export default function EstacionForm() {
   const router = useRouter();
 
-  const [nombre, setNombre] = useState("");
-  const [razonSocial, setRazonSocial] = useState("");
-  const [rfc, setRfc] = useState("");
-  const [permisoCRE, setPermisoCRE] = useState("");
-  const [direccion, setDireccion] = useState("");
-  const [representante, setRepresentante] = useState("");
-  const [telefono, setTelefono] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -27,40 +19,32 @@ export default function FormEstacionAdmin() {
     setError(null);
     setSuccess(false);
 
-    const payload: CreateEstacionPayload = {
-      nombre,
-      razonSocial,
-      rfc,
-      permisoCRE,
-      direccion,
-      representante,
-      telefono: telefono || null,
-    };
+    const form = e.currentTarget;
+
+    const nombre = (form.elements.namedItem("nombre") as HTMLInputElement).value;
+    const razonSocial = (form.elements.namedItem("razonSocial") as HTMLInputElement).value;
+    const rfc = (form.elements.namedItem("rfc") as HTMLInputElement).value;
+    const permisoCRE = (form.elements.namedItem("permisoCRE") as HTMLInputElement).value;
+    const direccion = (form.elements.namedItem("direccion") as HTMLInputElement).value;
+    const representante = (form.elements.namedItem("representante") as HTMLInputElement).value;
+    const telefono = (form.elements.namedItem("telefono") as HTMLInputElement).value;
 
     try {
-      // ✅ No se pasa token, NestJS lo valida por cookie httpOnly
-      const { data, error } = await createEstacion(payload);
-
-      if (error) {
-        setError(error);
-        return;
-      }
+      await createEstacion({
+        nombre,
+        razonSocial,
+        rfc,
+        permisoCRE,
+        direccion,
+        representante,
+        telefono,
+      });
 
       setSuccess(true);
+      form.reset();
 
-      // Limpiar formulario
-      setNombre("");
-      setRazonSocial("");
-      setRfc("");
-      setPermisoCRE("");
-      setDireccion("");
-      setRepresentante("");
-      setTelefono("");
-
-      // Redirigir después de 1.2s
       setTimeout(() => {
-        router.push("/estaciones/index_estaciones");
-        router.refresh();
+        router.push("/dashboard");
       }, 1200);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Error inesperado");
@@ -75,12 +59,10 @@ export default function FormEstacionAdmin() {
 
         {/* HEADER */}
         <header className="mb-12">
-          <span
-            className="inline-flex items-center gap-2 mb-4 rounded-full
-                       border border-sky-200 bg-sky-50
-                       px-4 py-1.5 text-xs font-semibold
-                       text-sky-600 tracking-wide"
-          >
+          <span className="inline-flex items-center gap-2 mb-4 rounded-full
+                           border border-sky-200 bg-sky-50
+                           px-4 py-1.5 text-xs font-semibold
+                           text-sky-600 tracking-wide">
             <span className="h-2 w-2 rounded-full bg-sky-500" />
             Nueva estación
           </span>
@@ -90,7 +72,7 @@ export default function FormEstacionAdmin() {
           </h1>
 
           <p className="mt-4 max-w-2xl text-slate-600">
-            Solo los usuarios con rol <span className="text-sky-600 font-medium">ADMIN</span> pueden registrar estaciones.
+            Registrar una estación de servicio en el sistema.
           </p>
         </header>
 
@@ -101,7 +83,6 @@ export default function FormEstacionAdmin() {
                      bg-white p-8 space-y-6
                      shadow-sm"
         >
-          {/* SUCCESS */}
           {success && (
             <div className="rounded-md border border-emerald-300
                             bg-emerald-50 p-4 text-sm text-emerald-700">
@@ -109,7 +90,6 @@ export default function FormEstacionAdmin() {
             </div>
           )}
 
-          {/* ERROR */}
           {error && (
             <div className="rounded-md border border-red-300
                             bg-red-50 p-4 text-sm text-red-700">
@@ -119,11 +99,11 @@ export default function FormEstacionAdmin() {
 
           {/* NOMBRE */}
           <div>
-            <label className="block mb-2 text-sm font-medium text-slate-700">Nombre</label>
+            <label className="block mb-2 text-sm font-medium text-slate-700">
+              Nombre de la estación
+            </label>
             <input
-              type="text"
-              value={nombre}
-              onChange={(e) => setNombre(e.target.value)}
+              name="nombre"
               required
               className="w-full rounded-md border border-slate-300
                          bg-white px-4 py-2.5 text-sm
@@ -131,93 +111,95 @@ export default function FormEstacionAdmin() {
             />
           </div>
 
-          {/* RAZÓN SOCIAL */}
+          {/* RAZON SOCIAL */}
           <div>
-            <label className="block mb-2 text-sm font-medium text-slate-700">Razón Social</label>
+            <label className="block mb-2 text-sm font-medium text-slate-700">
+              Razón Social
+            </label>
             <input
-              type="text"
-              value={razonSocial}
-              onChange={(e) => setRazonSocial(e.target.value)}
+              name="razonSocial"
               required
               className="w-full rounded-md border border-slate-300
-                         bg-white px-4 py-2.5 text-sm
+                         px-4 py-2.5 text-sm
                          focus:border-sky-500 focus:outline-none"
             />
           </div>
 
           {/* RFC */}
           <div>
-            <label className="block mb-2 text-sm font-medium text-slate-700">RFC</label>
+            <label className="block mb-2 text-sm font-medium text-slate-700">
+              RFC
+            </label>
             <input
-              type="text"
-              value={rfc}
-              onChange={(e) => setRfc(e.target.value)}
+              name="rfc"
               required
               className="w-full rounded-md border border-slate-300
-                         bg-white px-4 py-2.5 text-sm
+                         px-4 py-2.5 text-sm
                          focus:border-sky-500 focus:outline-none"
             />
           </div>
 
           {/* PERMISO CRE */}
           <div>
-            <label className="block mb-2 text-sm font-medium text-slate-700">Permiso CRE</label>
+            <label className="block mb-2 text-sm font-medium text-slate-700">
+              Permiso CRE
+            </label>
             <input
-              type="text"
-              value={permisoCRE}
-              onChange={(e) => setPermisoCRE(e.target.value)}
+              name="permisoCRE"
               required
               className="w-full rounded-md border border-slate-300
-                         bg-white px-4 py-2.5 text-sm
+                         px-4 py-2.5 text-sm
                          focus:border-sky-500 focus:outline-none"
             />
           </div>
 
-          {/* DIRECCIÓN */}
+          {/* DIRECCION */}
           <div>
-            <label className="block mb-2 text-sm font-medium text-slate-700">Dirección</label>
+            <label className="block mb-2 text-sm font-medium text-slate-700">
+              Dirección
+            </label>
             <input
-              type="text"
-              value={direccion}
-              onChange={(e) => setDireccion(e.target.value)}
+              name="direccion"
               required
               className="w-full rounded-md border border-slate-300
-                         bg-white px-4 py-2.5 text-sm
+                         px-4 py-2.5 text-sm
                          focus:border-sky-500 focus:outline-none"
             />
           </div>
 
           {/* REPRESENTANTE */}
           <div>
-            <label className="block mb-2 text-sm font-medium text-slate-700">Representante</label>
+            <label className="block mb-2 text-sm font-medium text-slate-700">
+              Representante
+            </label>
             <input
-              type="text"
-              value={representante}
-              onChange={(e) => setRepresentante(e.target.value)}
+              name="representante"
               required
               className="w-full rounded-md border border-slate-300
-                         bg-white px-4 py-2.5 text-sm
+                         px-4 py-2.5 text-sm
                          focus:border-sky-500 focus:outline-none"
             />
           </div>
 
-          {/* TELÉFONO */}
+          {/* TELEFONO */}
           <div>
-            <label className="block mb-2 text-sm font-medium text-slate-700">Teléfono</label>
+            <label className="block mb-2 text-sm font-medium text-slate-700">
+              Teléfono
+            </label>
             <input
-              type="text"
-              value={telefono}
-              onChange={(e) => setTelefono(e.target.value)}
+              name="telefono"
+              required
               className="w-full rounded-md border border-slate-300
-                         bg-white px-4 py-2.5 text-sm
+                         px-4 py-2.5 text-sm
                          focus:border-sky-500 focus:outline-none"
             />
           </div>
 
           {/* FOOTER */}
-          <div className="flex items-center justify-between pt-6 border-t border-slate-200">
+          <div className="flex items-center justify-between
+                          pt-6 border-t border-slate-200">
             <span className="text-xs text-slate-500">
-              Registro inalterable y trazable
+              Registro oficial de estación
             </span>
 
             <button
