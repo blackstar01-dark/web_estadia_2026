@@ -1,1 +1,1 @@
-export { CreateProgramaForm } from "./FormPrograma"
+export { CreatePlantillaForm } from "./FormPrograma"

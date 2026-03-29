@@ -8,5 +8,6 @@ export type Estacion = {
   representante: string;
   telefono?: string | null;
   adminId: number;
-  createdAt: string; 
+  createdAt: string;
+  activa: boolean;
 };

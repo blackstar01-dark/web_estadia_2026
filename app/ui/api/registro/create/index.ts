@@ -1,1 +1,1 @@
-export { RegistroBitacoraForm } from './registroBitacora';
+export { default as RegistroBitacoraForm } from './registroBitacora';

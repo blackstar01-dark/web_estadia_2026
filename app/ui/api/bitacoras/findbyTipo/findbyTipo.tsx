@@ -78,7 +78,7 @@ export const GetBitacorasTipo = async ({ tipo }: Props) => {
                              px-3 py-1 text-xs font-semibold
                              text-[#0099CC]"
                 >
-                  {bitacora.estacion.nombre}
+                  {bitacora.estacion?.nombre}
                 </div>
 
                 {/* Fundamento */}

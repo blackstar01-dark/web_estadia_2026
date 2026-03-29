@@ -1,5 +1,4 @@
-import { Estacion } from "./estacion";
-import { Registro } from "./registroBitacora";
+import { RegistroBitacora } from "./registroBitacora";
 
 export type TipoBitacora =
   | "ACTIVIDADES_DIARIAS"
@@ -19,14 +18,19 @@ export type ApiErrorResponse = {
 
 export interface Bitacora {
   id: number;
-  tipo: string;
+  tipo: TipoBitacora;
+  fundamento: string;
   estacion?: {
     id: number;
     nombre: string;
+    permisoCRE: string
   };
   creadaPor?: {
     id: number;
     nombre: string;
   };
   createdAt: string;
+  activa: boolean;
+
+  registros?: RegistroBitacora[];
 }

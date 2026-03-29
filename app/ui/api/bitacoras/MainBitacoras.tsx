@@ -80,10 +80,10 @@ export const MainBitacoras = async () => {
                 {/* ESTACIÓN */}
                 <div className="mb-4">
                   <h2 className="text-lg font-semibold">
-                    {bitacora.estacion.nombre}
+                    {bitacora.estacion?.nombre}
                   </h2>
                   <p className="text-sm text-[#6B7280]">
-                    Permiso CRE: {bitacora.estacion.permisoCRE}
+                    Permiso CRE: {bitacora.estacion?.permisoCRE}
                   </p>
                 </div>
 
@@ -100,7 +100,7 @@ export const MainBitacoras = async () => {
                     <span className="font-medium text-[#1F2933]">
                       Registros:
                     </span>{" "}
-                    {bitacora.registros.length}
+                    {bitacora.registros?.length ?? 0}
                   </p>
                 </div>
 
