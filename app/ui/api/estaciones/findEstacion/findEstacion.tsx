@@ -48,16 +48,6 @@ export const GetBitacorasEstacion = async ({
               </span>
             </p>
           </div>
-
-          <Link
-            href={`/bitacoras/nueva?estacion=${estacionId}`}
-            className="inline-flex items-center justify-center
-                       rounded-lg bg-[#0099CC] px-6 py-3
-                       font-semibold text-white
-                       hover:bg-[#0077AA] transition"
-          >
-            + Nueva bitácora
-          </Link>
         </header>
 
         {/* LISTA */}
