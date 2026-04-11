@@ -1,4 +1,4 @@
-
+// DTO para crear un registro
 export type CreateRegistroBitacoraDto = {
   bitacoraId: number;
   estacionId: number;
@@ -18,6 +18,7 @@ export type CreateRegistroBitacoraDto = {
   proveedor?: string;
 };
 
+// Tipo base de un registro en la base de datos
 export type RegistroBitacora = {
   id: number;
   folio: number;
@@ -27,12 +28,16 @@ export type RegistroBitacora = {
   estacionId: number;
   estacionNombre: string;
   periodicidad: string;
-  createdAt: string;
+  fechaHora: string | Date;
 };
 
+// Tipo extendido que incluye relaciones y datos específicos
 export type BitacoraRegistro = RegistroBitacora & {
   tipo: "OPERACION_MANTENIMIENTO" | "DESCARGA_PIPAS" | "OTRO";
-  persona?: { nombre: string; cargo?: string };
+  persona?: {
+    nombre: string;
+    cargo?: string;
+  };
   mantenimiento?: {
     tipo: string;
     actividad: string;
@@ -43,5 +48,9 @@ export type BitacoraRegistro = RegistroBitacora & {
     producto: string;
     volumenRecibido: number;
     proveedor: string;
+  };
+  bitacora?: {
+    id: number;
+    tipo: string;
   };
 };

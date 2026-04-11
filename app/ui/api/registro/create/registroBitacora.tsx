@@ -160,28 +160,31 @@ export default function RegistroBitacoraForm() {
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center px-4 py-10">
+    <section className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-3xl">
 
-        <div className="mb-8 text-center">
+        {/* HEADER */}
+        <div className="mb-10 text-center">
           <h1 className="text-3xl font-bold text-gray-800">
             Nuevo registro
           </h1>
-          <p className="text-gray-500 mt-1">
-            Registro operativo de bitácora
+          <p className="text-gray-500 mt-2 text-sm">
+            Completa la información para registrar la operación
           </p>
         </div>
 
-        <div className="bg-white rounded-3xl shadow-lg border border-gray-200 p-8 space-y-6">
+        {/* CARD */}
+        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 space-y-6">
 
+          {/* ALERTAS */}
           {success && (
-            <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-2 rounded-lg text-sm">
+            <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg text-sm">
               Registro creado correctamente
             </div>
           )}
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-2 rounded-lg text-sm">
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
               {error}
             </div>
           )}
@@ -189,47 +192,66 @@ export default function RegistroBitacoraForm() {
           <form onSubmit={onSubmit} className="space-y-6">
 
             {/* SELECTS */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <select
-                value={estacionId ?? ""}
-                onChange={(e) => setEstacionId(Number(e.target.value))}
-                className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-sky-500"
-              >
-                <option value="">Selecciona estación</option>
-                {estaciones.map((e) => (
-                  <option key={e.id} value={e.id}>
-                    {e.nombre}
-                  </option>
-                ))}
-              </select>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label className="block text-sm font-medium text-gray-600 mb-1">
+                  Estación
+                </label>
+                <select
+                  value={estacionId ?? ""}
+                  onChange={(e) => setEstacionId(Number(e.target.value))}
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-sky-500 outline-none"
+                >
+                  <option value="">Selecciona estación</option>
+                  {estaciones.map((e) => (
+                    <option key={e.id} value={e.id}>
+                      {e.nombre}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-              <select
-                value={bitacoraId ?? ""}
-                onChange={(e) => setBitacoraId(Number(e.target.value))}
-                className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-sky-500"
-              >
-                <option value="">Selecciona bitácora</option>
-                {bitacoras.map((b) => (
-                  <option key={b.id} value={b.id}>
-                    {b.tipo}
-                  </option>
-                ))}
-              </select>
+              <div>
+                <label className="block text-sm font-medium text-gray-600 mb-1">
+                  Bitácora
+                </label>
+                <select
+                  value={bitacoraId ?? ""}
+                  onChange={(e) => setBitacoraId(Number(e.target.value))}
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-sky-500 outline-none"
+                >
+                  <option value="">Selecciona bitácora</option>
+                  {bitacoras.map((b) => (
+                    <option key={b.id} value={b.id}>
+                      {b.tipo}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
 
             {/* DESCRIPCIÓN */}
-            <textarea
-              name="descripcion"
-              placeholder="Descripción de la operación"
-              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-sky-500"
-              rows={4}
-              required
-            />
+            <div>
+              <label className="block text-sm font-medium text-gray-600 mb-1">
+                Descripción
+              </label>
+              <textarea
+                name="descripcion"
+                placeholder="Describe la operación realizada..."
+                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-sky-500 outline-none"
+                rows={4}
+                required
+              />
+            </div>
 
             {/* MANTENIMIENTO */}
             {bitacoraSeleccionada?.tipo === "OPERACION_MANTENIMIENTO" && (
-              <div className="bg-gray-50 p-5 rounded-2xl border space-y-4">
-                <select name="programaId" className="w-full border rounded-xl px-4 py-3">
+              <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 space-y-4">
+                <h3 className="text-sm font-semibold text-gray-700">
+                  Datos de mantenimiento
+                </h3>
+
+                <select name="programaId" className="w-full border rounded-lg px-4 py-2.5">
                   <option value="">Selecciona programa</option>
                   {programas.map((p) => (
                     <option key={p.id} value={p.id}>
@@ -238,33 +260,51 @@ export default function RegistroBitacoraForm() {
                   ))}
                 </select>
 
-                <input name="tipoMantenimiento" placeholder="Tipo de mantenimiento" className="w-full border rounded-xl px-4 py-3" />
-                <textarea name="observaciones" placeholder="Observaciones" className="w-full border rounded-xl px-4 py-3" />
+                <input
+                  name="tipoMantenimiento"
+                  placeholder="Tipo de mantenimiento"
+                  className="w-full border rounded-lg px-4 py-2.5"
+                />
+
+                <textarea
+                  name="observaciones"
+                  placeholder="Observaciones adicionales"
+                  className="w-full border rounded-lg px-4 py-2.5"
+                />
               </div>
             )}
 
             {/* DESCARGA */}
             {bitacoraSeleccionada?.tipo === "DESCARGA_PIPAS" && (
-              <div className="bg-gray-50 p-5 rounded-2xl border space-y-4">
-                <select name="periodicidad" className="w-full border rounded-xl px-4 py-3">
+              <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 space-y-4">
+                <h3 className="text-sm font-semibold text-gray-700">
+                  Datos de descarga
+                </h3>
+
+                <select name="periodicidad" className="w-full border rounded-lg px-4 py-2.5">
                   <option value="DIARIA">Diaria</option>
-                  <option value="SEMANAL">Semanal</option>
                   <option value="MENSUAL">Mensual</option>
+                  <option value="TRIMESTRAL">Trimestral</option>
+                  <option value="ANUAL">Anual</option>
+                  <option value="POR_EVENTO">Por evento</option>
                 </select>
 
-                <input name="numeroPipa" placeholder="Número de pipa" className="w-full border rounded-xl px-4 py-3" />
-                <input name="producto" placeholder="Producto" className="w-full border rounded-xl px-4 py-3" />
-                <input name="volumenRecibido" type="number" placeholder="Volumen recibido" className="w-full border rounded-xl px-4 py-3" />
-                <input name="proveedor" placeholder="Proveedor" className="w-full border rounded-xl px-4 py-3" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <input name="numeroPipa" placeholder="Número de pipa" className="border rounded-lg px-4 py-2.5" />
+                  <input name="producto" placeholder="Producto" className="border rounded-lg px-4 py-2.5" />
+                  <input name="volumenRecibido" type="number" placeholder="Volumen recibido" className="border rounded-lg px-4 py-2.5" />
+                  <input name="proveedor" placeholder="Proveedor" className="border rounded-lg px-4 py-2.5" />
+                </div>
               </div>
             )}
 
+            {/* BOTÓN */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-2xl font-semibold"
+              className="w-full bg-sky-600 hover:bg-sky-700 transition-all text-white py-3 rounded-xl font-semibold shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              {loading ? "Creando..." : "Crear registro"}
+              {loading ? "Creando registro..." : "Crear registro"}
             </button>
           </form>
         </div>

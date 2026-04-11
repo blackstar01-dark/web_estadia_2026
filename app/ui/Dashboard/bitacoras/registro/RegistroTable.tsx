@@ -6,22 +6,17 @@ interface Props {
   registros: BitacoraRegistro[];
 }
 
-// 🔥 Función ULTRA segura para fechas
-const formatDate = (date: any) => {
+// 🔥 Función robusta para formatear fechas
+const formatDate = (date: string | Date | undefined) => {
   if (!date) return "—";
 
   let d: Date;
 
-  // 🧠 Si viene como string tipo "2026-02-27 16:03:05.257"
   if (typeof date === "string") {
     d = new Date(date.replace(" ", "T"));
-  } 
-  // 🧠 Si ya viene como Date
-  else if (date instanceof Date) {
+  } else if (date instanceof Date) {
     d = date;
-  } 
-  // 🧠 Cualquier otro caso
-  else {
+  } else {
     d = new Date(date);
   }
 
@@ -35,6 +30,14 @@ const formatDate = (date: any) => {
 };
 
 export const RegistroTable: React.FC<Props> = ({ registros }) => {
+  if (!registros || registros.length === 0) {
+    return (
+      <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-10 text-center text-gray-400">
+        No hay registros disponibles
+      </div>
+    );
+  }
+
   return (
     <div className="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden">
       
@@ -56,6 +59,7 @@ export const RegistroTable: React.FC<Props> = ({ registros }) => {
               <th className="px-6 py-4">Folio</th>
               <th className="px-6 py-4">Descripción</th>
               <th className="px-6 py-4">Registrado por</th>
+              <th className="px-6 py-4">Tipo Bitácora</th>
               <th className="px-6 py-4">Fecha</th>
             </tr>
           </thead>
@@ -81,24 +85,17 @@ export const RegistroTable: React.FC<Props> = ({ registros }) => {
                   {r.persona?.nombre ?? "—"}
                 </td>
 
+                {/* Tipo de Bitácora */}
+                <td className="px-6 py-5 text-gray-600">
+                  {r.bitacora?.tipo ?? r.bitacoraId}
+                </td>
+
                 {/* Fecha */}
                 <td className="px-6 py-5 text-gray-500">
-                  {formatDate(r.createdAt)}
+                  {formatDate(r.fechaHora)}
                 </td>
               </tr>
             ))}
-
-            {/* Sin registros */}
-            {registros.length === 0 && (
-              <tr>
-                <td
-                  colSpan={4}
-                  className="px-6 py-12 text-center text-gray-400"
-                >
-                  No hay registros en esta bitácora
-                </td>
-              </tr>
-            )}
           </tbody>
         </table>
       </div>
